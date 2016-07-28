@@ -49,8 +49,10 @@
   });
 
   // add the page controller
-  angular.module('skillsMatrixApp').controller('landingPageCtrl',function($scope, $rootScope, $http){
+  angular.module('skillsMatrixApp').controller('landingPageCtrl',function($scope, $rootScope, $http, queryBuilder){
     console.log($rootScope.dataLocker);
+
+    console.log(queryBuilder.Build('query1'));
 
     $scope.showRankedKeywords = false;
     console.log($scope.jobUrl);
@@ -83,6 +85,7 @@
 <script src="dataLocker/initJson.js"></script>
 <script src="dataLocker/savedQuerysJson.js"></script>
 <script src="dataLocker/masterSkillsJson.js"></script>
+  <script src="queryBuilder.js"></script>
 
 <!-- init custom.js -->
 <script type="text/javascript" src="js/custom.js"></script>
