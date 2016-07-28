@@ -4,8 +4,11 @@
   "name": "Skills Matrix",
   "description": "This extension helps you with job searching.",
   "version": "1.0",
+  "icons": { "16": "icons/icon16.png",
+             "48": "icons/icon48.png",
+            "128": "icons/icon128.png" },
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "icons/icon16.png"
   },
   "background":{
   	"scripts": ["js/custom.js"]
