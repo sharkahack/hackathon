@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shark-A-Hack - Skills Matrix</title>
   <link rel="stylesheet" href="lib/jquery-ui.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/prittify.css">
+  <link rel="stylesheet" href="css/dragDrop.css">
 
     <!-- bring in the librarys -->
   <script src="lib/jquery-3.1.0.min.js"></script>
@@ -36,7 +37,8 @@
 
   // set up app
   angular.module('skillsMatrixApp',[
-    'ngRoute'
+    'ngRoute',
+    'ui.sortable'
   ]);
 
   // set the route
@@ -49,10 +51,8 @@
   });
 
   // add the page controller
-  angular.module('skillsMatrixApp').controller('landingPageCtrl',function($scope, $rootScope, $http, queryBuilder){
+  angular.module('skillsMatrixApp').controller('landingPageCtrl',function($scope, $rootScope, $http){
     console.log($rootScope.dataLocker);
-
-    console.log(queryBuilder.Build('query1'));
 
     $scope.showRankedKeywords = false;
     console.log($scope.jobUrl);
@@ -70,15 +70,28 @@
       $http.get($scope.jobUrl).then(function(response) {
                 $scope.rankedKeywords = response;
                 console.log($scope.rankedKeywords);
-                localStorage.setItem('rankedKeywords', JSON.stringify(result));
                 //$scope.newMessage = response.data.queries.request.totalResults;
                 //$scope.messages.push($scope.newMessage);
       });
     };
-
-
-
   });
+
+
+  angular.module('skillsMatrixApp').controller('sortableController', function ($scope) {
+    'use strict';
+    $scope.list = [
+      {text: 'one', value: 1},
+      {text: 'two', value: 1},
+      {text: 'three', value: 1},
+    ];
+    $scope.sortableOptions = {
+      // called after a node is dropped
+      stop: function(e, ui) {
+      }
+    };
+  });
+
+
 })();
 </script>
 
@@ -86,10 +99,9 @@
 <script src="dataLocker/initJson.js"></script>
 <script src="dataLocker/savedQuerysJson.js"></script>
 <script src="dataLocker/masterSkillsJson.js"></script>
-  <script src="queryBuilder.js"></script>
 
 <!-- init custom.js -->
-<script type="text/javascript" src="js/custom.js"></script>
+<script src="js/custom.js"></script>
 
 
 </head>
