@@ -18,5 +18,7 @@
     "activeTab",
     "tabs",
     "http://jobview.monster.com/*"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com https://maxcdn.bootstrapcdn.com; object-src 'self'"
+
 }
