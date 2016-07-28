@@ -3,8 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Sortable - Default functionality</title>
+  <title>Shark-A-Hack - Skills Matrix</title>
   <link rel="stylesheet" href="lib/jquery-ui.css">
+
+  <!-- bring in the librarys -->
+  <script src="lib/jquery-3.1.0.min.js"></script>
+  <script src="lib/jquery-ui.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
+  <script src="landing.html" type="text/ng-template" id="landing.html"></script>
+
+  <!-- init the data files-->
+  <script src="dataLocker/initJson.js"></script>
+  <script src="dataLocker/savedQuerysJson.js"></script>
+  <script src="dataLocker/masterSkillsJson.js"></script>
+
+
   <style>
   #sortable1, #sortable2 {
     border: 1px solid #eee;
@@ -24,45 +38,59 @@
   }
   </style>
 
-  <script src="lib/jquery-3.1.0.min.js"></script>
-  <script src="lib/jquery-ui.min.js"></script>
-
-
-
-  <script src="dataLocker/initJson.js"></script>
-  <script src="dataLocker/savedQuerysJson.js"></script>
-  <script src="dataLocker/masterSkillsJson.js"></script>
-
-
 
   <script>
+    // this will move
     console.log(dataLocker);
+    $( function() {
+
+      $("#sortable1").sortable({
+        connectWith: ".connectedSortable",
+      }).disableSelection();
+
+      $("#sortable2").sortable({
+        connectWith: ".connectedSortable",
+        cancel: ".sourceSkill"
+      }).disableSelection();
+
+      $( "#sortable1 li, #sortable2 li" ).disableSelection();
+    } );
+</script>
 
 
 
+<!-- set up angular -->
+<script>
+(function(){
+  "use strict"
 
-$( function() {
+  // set up app
+  angular.module('skillsMatrixApp',[
+    'ngRoute'
+  ]);
 
-  $("#sortable1").sortable({
-    connectWith: ".connectedSortable",
-  }).disableSelection();
+  // set the route
+  angular.module('skillsMatrixApp').config(function($routeProvider){
+    $routeProvider
+    .otherwise({
+      templateUrl: 'landing.html',
+      controller: 'landingPageCtrl'
+    })
+  });
 
-  $("#sortable2").sortable({
-    connectWith: ".connectedSortable",
-    cancel: ".sourceSkill"
-  }).disableSelection();
-
-  $( "#sortable1 li, #sortable2 li" ).disableSelection();
-
-
-} );
+  // add the page controller
+  angular.module('skillsMatrixApp').controller('landingPageCtrl',function(){
+    console.log("hello angular world");
+  });
+})();
 </script>
 
 </head>
-<body>
 
 
-  <h1>Shark-a-hack - Skills Matix</h1>
+<body ng-app="skillsMatrixApp">
+  <div ng-view=""></div>
+
   <label for="urlToSend">Select a URL to send to the API</label>
   <input name="urlToSend" id="urlToSend" />
   <button onClick="goGetAPIStuff">Go Get API Stuff</button>
