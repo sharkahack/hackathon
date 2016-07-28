@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-
+  
   "name": "Skills Matrix",
   "description": "This extension helps you with job searching.",
   "version": "1.0",
@@ -8,17 +8,9 @@
     "default_icon": "icon.png",
     "default_popup": "index.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["http://jobview.monster.com/*"],
-      "js": ["lib/external/jquery/jquery.js", "js/content.js"]
-    }
-  ],
+  
   "permissions": [
     "activeTab",
-    "tabs",
-    "http://jobview.monster.com/*"
-  ],
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com https://maxcdn.bootstrapcdn.com; object-src 'self'"
-
+    "tabs"
+  ]
 }
