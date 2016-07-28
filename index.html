@@ -26,13 +26,18 @@
 
   <script src="lib/jquery-3.1.0.min.js"></script>
   <script src="lib/jquery-ui.min.js"></script>
-  <script>
 
-  var masterSkills = [
-    {name: "Javascript"},
-    {name: "TypeScript"},
-    {name: "PhotoShop"}
-  ]
+
+
+  <script src="dataLocker/initJson.js"></script>
+  <script src="dataLocker/savedQuerysJson.js"></script>
+  <script src="dataLocker/masterSkillsJson.js"></script>
+
+
+
+  <script>
+    console.log(dataLocker);
+
 
 
 
@@ -55,6 +60,18 @@ $( function() {
 
 </head>
 <body>
+
+
+  <h1>Shark-a-hack - Skills Matix</h1>
+  <label for="urlToSend">Select a URL to send to the API</label>
+  <input name="urlToSend" id="urlToSend" />
+  <button onClick="goGetAPIStuff">Go Get API Stuff</button>
+
+  <br>
+  <br>
+  <br>
+
+
 
   <ul id="sortable1" class="connectedSortable">
     <li class="ui-state-default">Item 1</li>
