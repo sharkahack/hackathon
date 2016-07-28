@@ -8,8 +8,15 @@
     "default_icon": "icon.png",
     "default_popup": "index.html"
   },
+  "content_scripts": [
+    {
+      "matches": ["http://jobview.monster.com/*"],
+      "js": ["lib/external/jquery/jquery.js", "js/content.js"]
+    }
+  ],
   "permissions": [
     "activeTab",
-    "tabs"
+    "tabs",
+    "http://jobview.monster.com/*"
   ]
 }
