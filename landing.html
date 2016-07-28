@@ -1,2 +1,24 @@
 <h1>this is landing.html stuff</h1>
-<!-- <pre>{{dataLocker | json}}</pre> -->
+<!--pre>{{dataLocker | json}}</pre-->
+
+
+<div ng-controller="landingPageCtrl">
+
+  <div class="row text-center">
+    <form name="hackFrom">
+          <div class="col-lg-8">                
+              <input id="hackForm" type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
+          </div>
+
+          <div class="col-lg-4">        
+              <button id="hackButton" type="submit" class="btn btn-danger sharp" ng-click="getRankedKeywords()">Get json!</button> 
+          </div>
+    </form>
+  </div>
+
+    <div ng-show="showRankedKeywords">
+      <div ng-repeat="keyword in rankedKeywords.data.keywords | limitTo:10">
+        {{keyword.text}} : {{keyword.relevance}} 
+      </div> 
+    </div>  
+  </div>
