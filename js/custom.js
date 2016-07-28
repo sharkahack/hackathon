@@ -39,7 +39,10 @@ function getCurrentTabUrl(callback) {
 }
 
 function renderStatus(statusText) {
-  document.getElementById('status').value += statusText;
+  //document.getElementById('status').value += statusText;
+  var obj = document.getElementById('status');
+  var txt = document.createTextNode(statusText);
+  obj.appendChild(txt);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -47,4 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Put the URL.
     renderStatus(url);
   });
+  document.getElementById('open_tab').addEventListener("click", openNewTab);
 });
+
+function openNewTab() {
+  var tab_url="http://www.monster.com/";
+  chrome.tabs.create({
+       url: tab_url
+  });
+}
+
+
