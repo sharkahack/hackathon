@@ -17,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <!-- end bootstrap-->
 
-  
+
 
   <!-- bring in the librarys -->
   <script src="lib/jquery-3.1.0.min.js"></script>
@@ -28,44 +28,6 @@
 
   <!-- UI sortable angular-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.14.3/sortable.min.js"></script>
-
-  <style>
-  #sortable1, #sortable2 {
-    border: 1px solid #eee;
-    width: 142px;
-    min-height: 20px;
-    list-style-type: none;
-    margin: 0;
-    padding: 5px 0 0 0;
-    float: left;
-    margin-right: 10px;
-  }
-  #sortable1 li, #sortable2 li {
-    margin: 0 5px 5px 5px;
-    padding: 5px;
-    font-size: 1.2em;
-    width: 120px;
-  }
-  </style>
-
-
-  <script>
-    // this will move
-    $( function() {
-
-      $("#sortable1").sortable({
-        connectWith: ".connectedSortable",
-      }).disableSelection();
-
-      $("#sortable2").sortable({
-        connectWith: ".connectedSortable",
-        cancel: ".sourceSkill"
-      }).disableSelection();
-
-      $( "#sortable1 li, #sortable2 li" ).disableSelection();
-    } );
-</script>
-
 
 
 <!-- set up angular -->
@@ -101,7 +63,7 @@
       console.log('getRankedKeywords function');
 
       $scope.showRankedKeywords = true;
-      
+
       $scope.jobUrl = $scope.APIUrl.concat($scope.jobUrl);
       //console.log($scope.jobUrl);
       $http.get($scope.jobUrl).then(function(response) {
@@ -136,45 +98,24 @@
 
     <form name="hackFrom">
       <div>
-          <div>                
+          <div>
               <input type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
           </div>
 
-          <div>       
-              <button type="submit" ng-click="getRankedKeywords()">Get json!</button> 
+          <div>
+              <button type="submit" ng-click="getRankedKeywords()">Get json!</button>
           </div>
-          
-      </div> 
+
+      </div>
     </form>
 
     <div ng-show="showRankedKeywords">
       <div ng-repeat="keyword in rankedKeywords.data.keywords | limitTo:10">
-        {{keyword.text}} : {{keyword.relevance}} 
-      </div> 
-    </div>  
+        {{keyword.text}} : {{keyword.relevance}}
+      </div>
+    </div>
   </div>
 
-  <br>
-  <br>
-  <br>
-
-
-
-  <ul id="sortable1" class="connectedSortable">
-    <li class="ui-state-default">Item 1</li>
-    <li class="ui-state-default">Item 2</li>
-    <li class="ui-state-default">Item 3</li>
-    <li class="ui-state-default">Item 4</li>
-    <li class="ui-state-default">Item 5</li>
-  </ul>
-
-  <ul id="sortable2" class="connectedSortable">
-    <li class="ui-state-highlight sourceSkill">Item 1</li>
-    <li class="ui-state-highlight sourceSkill">Item 2</li>
-    <li class="ui-state-highlight sourceSkill">Item 3</li>
-    <li class="ui-state-highlight sourceSkill">Item 4</li>
-    <li class="ui-state-highlight sourceSkill">Item 5</li>
-  </ul>
 
 
 </body>
