@@ -4,32 +4,17 @@
 
 <div ng-controller="landingPageCtrl">
 
-  <div class="row">
+  <div class="row text-center">
     <form name="hackFrom">
-      <div>
-          <div>                
-              <input type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
+          <div class="col-lg-6">                
+              <input id="hackForm" type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
           </div>
 
-          <div>       
+          <div class="col-lg-6">        
               <button type="submit" class="btn btn-danger sharp" ng-click="getRankedKeywords()">Get json!</button> 
           </div>
-          
-      </div> 
     </form>
   </div>
-    <form name="hackFrom">
-      <div>
-          <div>                
-              <input type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
-          </div>
-
-          <div>       
-              <button type="submit" ng-click="getRankedKeywords()">Get json!</button> 
-          </div>
-          
-      </div> 
-    </form>
 
     <div ng-show="showRankedKeywords">
       <div ng-repeat="keyword in rankedKeywords.data.keywords | limitTo:10">
