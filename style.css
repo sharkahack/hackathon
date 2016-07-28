@@ -167,6 +167,50 @@ a,
     height: 50px;
   }
 
+  .monster {
+  	/*background-color: rgba(100,40,145,0.1);*/
+  	border-radius: 0px;
+  	border:0px;
+
+  }
+
+  .apiList {
+  	background-color: rgba(100,40,145,0.1);
+  	border-radius: 0px;
+  	border:solid 5px;
+  	border-color: rgba(100,40,145, 0.6);
+  	height: 300px;
+  	overflow: scroll;
+  }
+
+  .masterList {
+  	background-color: rgba(100,40,145,0.1);
+  	border-radius: 0px;
+  	border:solid 5px;
+  	border-color: rgba(100,40,145, 0.6);
+  	height: 300px;
+  	overflow: scroll;
+  }
+
+  .queryReqList {
+  	background-color: rgba(0, 100, 0, 0.1);
+  	border-radius: 0px;
+  	border:solid 5px;
+  	border-color: rgba(0,100,0, 0.6);
+  	height: 300px;
+  	overflow: scroll;
+  }
+
+  .queryOptList {
+  	background-color: rgba(193, 46, 42, 0.1);
+  	border-radius: 0px;
+  	border:solid 5px;
+  	border-color: rgba(193, 46, 42, 0.6);
+  	height: 300px;
+  	overflow: scroll;
+  }
+
+
   .masterListObject {
   	font-family: Roboto;
   	background: #642891;
@@ -178,4 +222,37 @@ a,
 	opacity: 0.7;
 	margin: 10px;
   }
+
+  .queryListReqObject {
+  	font-family: Roboto;
+  	background: rgba(0, 100, 0, 0.8);
+	color: #ffffff;
+	border-width: 0 0 1px;
+	border-style: solid;
+	border-color: #642891;
+	font-weight: 300;
+	opacity: 0.7;
+	margin: 10px;
+  }
+
+  .queryListOptObject {
+  	font-family: Roboto;
+	color: #ffffff;
+	border-width: 0 0 1px;
+	border-style: solid;
+	border-color: #642891;
+	font-weight: 300;
+	margin: 10px;
+  }
+
+  h1 {
+  	margin-left: 10px;
+  	font-family: Roboto;
+  	font-size: 16px;
+  	text-transform: uppercase;
+  	color: rgba(100,40,145, 0.6);
+
+  }
+
+
 
