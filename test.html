@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+/*jobUrl = "https://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey=e1988a049c6961aca0a370068dcf5a0140521026&outputMode=json&url=http://jobview.monster.com/Senior-IT-Database-Analyst-Multiple-Locations-Job-Boston-MA-US-170200057.aspx?mescoid=1500142001001&jobPosition=1"*/
+
+function rankedKeywords(jobUrl)
+{	
+	console.log(jobUrl);
+	$.getJSON(jobUrl, function(result){
+        	console.log(result);
+        	// Put the object into storage
+			localStorage.setItem('rankedKeywords', JSON.stringify(result));
+        });
+}
+</script>
+
+<script>
+/*jobUrl = "https://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey=e1988a049c6961aca0a370068dcf5a0140521026&outputMode=json&url=http://jobview.monster.com/Senior-IT-Database-Analyst-Multiple-Locations-Job-Boston-MA-US-170200057.aspx?mescoid=1500142001001&jobPosition=1"*/
+
+function getRankedKeywords()
+{	
+	// Retrieve the object from storage
+	var retrievedObject = localStorage.getItem('rankedKeywords');
+
+	console.log('retrievedObject: ', JSON.parse(retrievedObject));
+}
+</script>
+</head>
+<body>
+
+<form>
+  First URL:<br>
+  <input type="text" id="firstUrl">
+</form>
+
+<input type="button" onclick="rankedKeywords(document.getElementById('firstUrl').value); return false;" value="Get JSON data" />
+
+<input type="button" onclick="getRankedKeywords(); return false;" value="Retrieve from localStorage" />
+
+<div></div>
+
+</body>
+</html>
