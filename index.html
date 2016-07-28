@@ -35,9 +35,26 @@
 <script>
 (function(){
 
+  // adds a filter to cross refrence master -> query data
+  angular.module('skillsMatrixApp').filter('crossref', function ($rootScope) {
+      return function (val) {
+        for(x in $rootScope.dataLocker.masterSkills){
+            if (val == $rootScope.dataLocker.masterSkills[x].id){
+              return $rootScope.dataLocker.masterSkills[x].name;
+            }
+          }
+      };
+  });
+
+
   // add the page controller
   angular.module('skillsMatrixApp').controller('landingPageCtrl',['$scope', '$rootScope', '$http', controllerFunction]);
   function controllerFunction($scope, $rootScope, $http){
+
+    $scope.refrenceSkills = function(){
+        console.log($root.dataLocker.masterSkills);
+    };
+
     console.log($rootScope.dataLocker.masterSkills);
     $scope.APIUrl = "https://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey=e1988a049c6961aca0a370068dcf5a0140521026&outputMode=json&url="
     $scope.showRankedKeywords = false;
