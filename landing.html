@@ -4,21 +4,44 @@
 
 <div ng-controller="landingPageCtrl">
 
-  <div class="row text-center">
-    <form name="hackFrom">
-          <div class="col-lg-8">                
-              <input id="hackForm" type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
-          </div>
+  <div class="container">
+	  <div class="row text-center">
+	    <form name="hackFrom">
+	          <div class="col-lg-8">                
+	              <input id="hackForm" type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
+	          </div>
 
-          <div class="col-lg-4">        
-              <button id="hackButton" type="submit" class="btn btn-danger sharp" ng-click="getRankedKeywords()">Get json!</button> 
-          </div>
-    </form>
-  </div>
+	          <div class="col-lg-4">        
+	              <button id="hackButton" type="submit" class="btn btn-danger sharp" ng-click="getRankedKeywords()">Get json!</button> 
+	          </div>
+	    </form>
+	  </div>
+	</div>	  
+  <div class="container">
+	  <div class="row">
+	        <div class="col-lg-4" ng-show="showRankedKeywords">
+		        <div class="row"> 
+		        	<h1>Api list:</h1>
+		        </div> 
+		        <div class="row">               
+		  			<div ng-repeat="keyword in rankedKeywords.data.keywords | limitTo:10">
+		    			{{keyword.text}} : {{keyword.relevance}} 
+		      		</div> 
+		      	</div>	
+	      	</div>  
+	      	<div class="col-lg-8" ng-show="showRankedKeywords">
+		        <div class="row"> 
+		        	<div class="col-lg-12">
+		        		Query
+		        	</div>
+		        </div> 
+		        <div class="row">               
+		  			<div class="col-lg-12">
+		  				Drag here!
+		      		</div> 
+		      	</div>	
+	      	</div> 
+	  </div>
+	</div>
 
-    <div ng-show="showRankedKeywords">
-      <div ng-repeat="keyword in rankedKeywords.data.keywords | limitTo:10">
-        {{keyword.text}} : {{keyword.relevance}} 
-      </div> 
-    </div>  
-  </div>
+</div>
