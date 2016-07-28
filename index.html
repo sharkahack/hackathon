@@ -72,8 +72,32 @@
   });
 
   // add the page controller
-  angular.module('skillsMatrixApp').controller('landingPageCtrl',function($scope, $rootScope){
+  angular.module('skillsMatrixApp').controller('landingPageCtrl',function($scope, $rootScope, $http){
     console.log($rootScope.dataLocker);
+
+    $scope.showRankedKeywords = false;
+    console.log($scope.jobUrl);
+
+    $scope.APIUrl = "https://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey=e1988a049c6961aca0a370068dcf5a0140521026&outputMode=json&url="
+
+
+    $scope.getRankedKeywords = function(){
+      console.log('getRankedKeywords function');
+
+      $scope.showRankedKeywords = true;
+      
+      $scope.jobUrl = $scope.APIUrl.concat($scope.jobUrl);
+      //console.log($scope.jobUrl);
+      $http.get($scope.jobUrl).then(function(response) {
+                $scope.rankedKeywords = response;
+                console.log($scope.rankedKeywords);
+                //$scope.newMessage = response.data.queries.request.totalResults;
+                //$scope.messages.push($scope.newMessage);
+      });
+    };
+
+
+
   });
 })();
 </script>
@@ -93,9 +117,28 @@
 <body ng-app="skillsMatrixApp">
   <div ng-view=""></div>
 
-  <label for="urlToSend">Select a URL to send to the API</label>
-  <input name="urlToSend" id="urlToSend" />
-  <button onClick="goGetAPIStuff">Go Get API Stuff</button>
+  <div ng-controller="landingPageCtrl">
+
+
+    <form name="hackFrom">
+      <div>
+          <div>                
+              <input type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
+          </div>
+
+          <div>       
+              <button type="submit" ng-click="getRankedKeywords()">Get json!</button> 
+          </div>
+          
+      </div> 
+    </form>
+
+    <div ng-show="showRankedKeywords">
+      <div ng-repeat="keyword in rankedKeywords.data.keywords | limitTo:10">
+        {{keyword.text}} : {{keyword.relevance}} 
+      </div> 
+    </div>  
+  </div>
 
   <br>
   <br>
