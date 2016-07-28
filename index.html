@@ -68,6 +68,7 @@
       $http.get($scope.jobUrl).then(function(response) {
                 $scope.rankedKeywords = response;
                 console.log($scope.rankedKeywords);
+                localStorage.setItem('rankedKeywords', JSON.stringify(result));
                 //$scope.newMessage = response.data.queries.request.totalResults;
                 //$scope.messages.push($scope.newMessage);
       });
