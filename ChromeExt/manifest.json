@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Skill Matrix",
+  "name": "Skills Matrix",
   "description": "This extension shows a Google Image search result for the current page",
   "version": "1.0",
 
