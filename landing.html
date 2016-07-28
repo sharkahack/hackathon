@@ -1,47 +1,82 @@
 <h1>this is landing.html stuff</h1>
 <!--pre>{{dataLocker | json}}</pre-->
+<div class="container">
+  <section>
+    <h1>Sortable items</h1>
+    <div ng-controller="sortableController" class="section row">
+      <div class="col-sm-offset-2 col-sm-4">
+        <ul ui-sortable="sortableOptions" ng-model="list" class="list">
+          <li ng-repeat="keyword in rankedKeywords.data.keywords" class="item">{{keyword.text}}</li>
+        </ul>
+      </div>
+      <div class="col-sm-4">
+        <ul class="list logList">
+          <li ng-repeat="entry in sortingLog" class="logItem">{{entry.Text}}</li>
+        </ul>
+      </div>
+    </div>
 
 
-<div ng-controller="landingPageCtrl">
+    <h1>Connected items</h1>
+
+      <div ng-controller="connectedController" class="section row connectedItemsExample">
+        <div class="col-sm-offset-2 col-sm-4">
+          <ul ui-sortable="sortableOptions" ng-model="$root.dataLocker.masterSkills" class="list">
+            <li ng-repeat="items in $root.dataLocker.masterSkills" class="item">{{items.name}}</li>
+          </ul>
+          <pre>{{$root.dataLocker.masterSkills | json}}</pre>
+        </div>
+        <div class="col-sm-4">
+          <ul ui-sortable="sortableOptions" ng-model="apiList" class="list">
+            <li ng-repeat="keyword in apiList" class="item">{{keyword.name}}</li>
+          </ul>
+          <pre>{{apiList | json}}</pre>
+        </div>
+
+      </div>
+
+
+  </section>
+</div>
+
+
 
   <div class="container">
 	  <div class="row text-center">
 	    <form name="hackFrom">
-	          <div class="col-lg-8">                
+	          <div class="col-lg-8">
 	              <input id="hackForm" type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
 	          </div>
 
-	          <div class="col-lg-4">        
-	              <button id="hackButton" type="submit" class="btn btn-danger sharp" ng-click="getRankedKeywords()">Get json!</button> 
+	          <div class="col-lg-4">
+	              <button id="hackButton" type="submit" class="btn btn-danger sharp" ng-click="showIt()">Get json!</button>
 	          </div>
 	    </form>
 	  </div>
-	</div>	  
+	</div>
   <div class="container">
 	  <div class="row">
 	        <div class="col-lg-4" ng-show="showRankedKeywords">
-		        <div class="row"> 
+		        <div class="row">
 		        	<h1>Api list:</h1>
-		        </div> 
-		        <div class="row">               
-		  			<div ng-repeat="keyword in rankedKeywords.data.keywords | limitTo:10">
-		    			{{keyword.text}} : {{keyword.relevance}} 
-		      		</div> 
-		      	</div>	
-	      	</div>  
+		        </div>
+		        <div class="row">
+		  			<div ng-repeat="keyword in $rootScope.rankedKeywords.data.keywords | limitTo:10">
+		    			{{keyword.text}} : {{keyword.relevance}}
+		      		</div>
+		      	</div>
+	      	</div>
 	      	<div class="col-lg-8" ng-show="showRankedKeywords">
-		        <div class="row"> 
+		        <div class="row">
 		        	<div class="col-lg-12">
 		        		Query
 		        	</div>
-		        </div> 
-		        <div class="row">               
+		        </div>
+		        <div class="row">
 		  			<div class="col-lg-12">
 		  				Drag here!
-		      		</div> 
-		      	</div>	
-	      	</div> 
+		      		</div>
+		      	</div>
+	      	</div>
 	  </div>
 	</div>
-
-</div>

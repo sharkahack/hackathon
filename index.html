@@ -4,104 +4,105 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shark-A-Hack - Skills Matrix</title>
-  <link rel="stylesheet" href="lib/jquery-ui.css">
-  <link rel="stylesheet" href="style.css">
 
-    <!-- bring in the librarys -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="lib/jquery-ui.css">
+  <link rel="stylesheet" href="css/prittify.css">
+  <link rel="stylesheet" href="css/dragDrop.css">
+
+  <!-- bring in the librarys -->
   <script src="lib/jquery-3.1.0.min.js"></script>
   <script src="lib/jquery-ui.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
   <script src="landing.html" type="text/ng-template" id="landing.html"></script>
-
-  <!--bootstrap-->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <!-- end bootstrap-->
-
-  <!-- UI sortable angular-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.14.3/sortable.min.js"></script>
 
 
+
+
 <!-- set up angular -->
-<script>
-(function(){
-  "use strict"
-
-  // set up app
-  angular.module('skillsMatrixApp',[
-    'ngRoute'
-  ]);
-
-  // set the route
-  angular.module('skillsMatrixApp').config(function($routeProvider){
-    $routeProvider
-    .otherwise({
-      templateUrl: 'landing.html',
-      controller: 'landingPageCtrl'
-    })
-  });
-
-  // add the page controller
-  angular.module('skillsMatrixApp').controller('landingPageCtrl',function($scope, $rootScope, $http, queryBuilder){
-    console.log($rootScope.dataLocker);
-
-    console.log(queryBuilder.Build('query1'));
-
-    $scope.showRankedKeywords = false;
-    console.log($scope.jobUrl);
-
-    $scope.APIUrl = "https://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey=e1988a049c6961aca0a370068dcf5a0140521026&outputMode=json&url="
-
-
-    $scope.getRankedKeywords = function(){
-      console.log('getRankedKeywords function');
-
-      $scope.showRankedKeywords = true;
-
-      $scope.jobUrl = $scope.APIUrl.concat($scope.jobUrl);
-      //console.log($scope.jobUrl);
-      $http.get($scope.jobUrl).then(function(response) {
-                $scope.rankedKeywords = response;
-                console.log($scope.rankedKeywords);
-                localStorage.setItem('rankedKeywords', JSON.stringify(result));
-                //$scope.newMessage = response.data.queries.request.totalResults;
-                //$scope.messages.push($scope.newMessage);
-      });
-    };
-
-
-
-  });
-})();
-</script>
+<script src="js/app.js"></script>
 
 <!-- init the data files-->
 <script src="dataLocker/initJson.js"></script>
 <script src="dataLocker/savedQuerysJson.js"></script>
 <script src="dataLocker/masterSkillsJson.js"></script>
-  <script src="queryBuilder.js"></script>
 
-<!-- init custom.js -->
-<script type="text/javascript" src="js/custom.js"></script>
 
+<script>
+(function(){
+
+  // add the page controller
+  angular.module('skillsMatrixApp').controller('landingPageCtrl',['$scope', '$rootScope', '$http', controllerFunction]);
+  function controllerFunction($scope, $rootScope, $http){
+    console.log($rootScope.dataLocker.masterSkills);
+    $scope.APIUrl = "https://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey=e1988a049c6961aca0a370068dcf5a0140521026&outputMode=json&url="
+    $scope.showRankedKeywords = false;
+    $scope.showIt = function(){
+        $scope.showRankedKeywords = true;
+        $scope.jobUrl = $scope.APIUrl.concat($scope.jobUrl);
+        $http.get($scope.jobUrl).then(function(response) {
+                  $scope.rankedKeywords = response;
+                  console.log($scope.rankedKeywords);
+                  //localStorage.setItem('rankedKeywords', JSON.stringify(result));
+                  //$scope.newMessage = response.data.queries.request.totalResults;
+                  //$scope.messages.push($scope.newMessage);
+        });
+      }
+
+    $scope.showIt();
+    console.log($rootScope.dataLocker);
+  };
+})();
+
+
+(function(){
+
+  angular.module('skillsMatrixApp').controller('sortableController', function ($scope) {
+    'use strict';
+    $scope.sortableOptions = {
+      stop: function(e, ui) {
+
+      }
+    };
+  });
+
+  angular.module('skillsMatrixApp').controller('connectedController', function ($scope) {
+    $scope.masterList = [];
+    $scope.apiList = [];
+    $scope.sortableOptions = {
+      connectWith: '.connectedItemsExample .list',
+      stop: function(e, ui) {
+        console.log(ui);
+      }
+    };
+  });
+
+
+
+})();
+
+
+
+</script>
+
+
+
+
+
+
+  <!-- init custom.js -->
+  <script type="text/javascript" src="js/custom.js"></script>
 
 </head>
 
 
 <body ng-app="skillsMatrixApp">
   <div ng-view=""></div>
-
-
-<textarea id='status'></textarea>
-<button id='open_tab'>new tab</button>
-
-
 </body>
+
+
 </html>
