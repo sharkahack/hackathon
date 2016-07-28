@@ -13,11 +13,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
   <script src="landing.html" type="text/ng-template" id="landing.html"></script>
 
-  <!-- init the data files-->
-  <script src="dataLocker/initJson.js"></script>
-  <script src="dataLocker/savedQuerysJson.js"></script>
-  <script src="dataLocker/masterSkillsJson.js"></script>
-
 
   <style>
   #sortable1, #sortable2 {
@@ -41,7 +36,6 @@
 
   <script>
     // this will move
-    console.log(dataLocker);
     $( function() {
 
       $("#sortable1").sortable({
@@ -79,11 +73,18 @@
   });
 
   // add the page controller
-  angular.module('skillsMatrixApp').controller('landingPageCtrl',function(){
-    console.log("hello angular world");
+  angular.module('skillsMatrixApp').controller('landingPageCtrl',function($scope, $rootScope){
+    console.log($rootScope.dataLocker);
   });
 })();
 </script>
+
+<!-- init the data files-->
+<script src="dataLocker/initJson.js"></script>
+<script src="dataLocker/savedQuerysJson.js"></script>
+<script src="dataLocker/masterSkillsJson.js"></script>
+
+
 
 </head>
 
