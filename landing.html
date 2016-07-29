@@ -1,60 +1,78 @@
-  <div class="container">
-
-    <!-- url Bar -->
-	  <div class="row text-center">
-      <form name="hackFrom">
-        <div class="col-lg-8">
-            <input id="hackForm" type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
-        </div>
-        <div class="col-lg-4">
-            <button id="hackButton" type="submit" class="btn btn-danger sharp" ng-click="showIt()">Get json!</button>
-        </div>
-      </form>
-    </div>
-
-
-    <!-- page header -->
-    <div class="row">
-      <div class="col-sm-12"><h1>Skills Matrix</h1></div>
-    </div>
-
-
-
-	  <div class="row monster">
+  <div class="skills-matrix">
+	  <div class="row">
       <div ng-controller="connectedController" class="section row connectedItemsExample">
-      <div class="col-sm-4">
+      <div class="col-sm-12"><h1>Skills Matrix</h1><hr></div>
+      <div class="col-sm-5">
 
-          <h1>api list:</h1>
-          <ul ui-sortable="sortableOptions" ng-model="apiList" class="apiList list">
-            <li ng-repeat="keyword in apiList" class="item">{{keyword.name}}</li>
-          </ul>
-
-          <h1>Master list:</h1>
-          <ul ui-sortable="sortableOptions" ng-model="$root.dataLocker.masterSkills" class="masterList list">
-            <li ng-repeat="items in $root.dataLocker.masterSkills" class="masterListObject item">{{items.name}}</li>
-          </ul>
+          <h2>New Suggestions:</h2>
+          <div ui-sortable="sortableOptions" ng-model="$root.dataLocker.api" class="newItem">
+            <p ng-repeat="keyword in $root.dataLocker.api track by $index" class="item">{{keyword}}</p>
+          </div>
+          <br>
+          <h2>Saved Skills:</h2>
+          <div ui-sortable="sortableOptions" ng-model="$root.dataLocker.masterSkills" class="list">
+            <p ng-repeat="items in $root.dataLocker.masterSkills track by $index" class="masterListObject item green">{{items}}</p>
+          </div>
           <!-- <pre>{{$root.dataLocker.masterSkills | json}}</pre> -->
 
 
         </div>
 
-      	<div class="col-lg-8">
+      	<div class="col-lg-7">
 
-          <!--div ng-repeat="q in $root.dataLocker.savedQuerys">{{q}}</div-->
+            <!-- Default panel contents -->
 
-          <h1>query list: (requered)</h1>
-          <ul ui-sortable="sortableOptions" ng-model="$root.dataLocker.savedQuerys['query1'].required" class="queryReqList list">
-            <li ng-repeat="keyword in $root.dataLocker.savedQuerys['query1'].required" class="queryListReqObject item">{{keyword | crossref}}</li>
-          </ul>
-          <!-- <pre>{{$root.dataLocker.savedQuerys.query1.required | json}}</pre> -->
+            <!-- List group -->
+            <ul class="list-group metalic" ng-repeat="(key,q) in $root.dataLocker.savedQuerys" ng-show="showMe == key">
 
-          <h1>query list: (optional)</h1>
-          <ul ui-sortable="sortableOptions" ng-model="$root.dataLocker.savedQuerys.query1.optional" class="queryOptList list">
-            <li ng-repeat="keyword in $root.dataLocker.savedQuerys.query1.optional" class="queryListOptObject item">{{keyword | crossref}}</li>
-          </ul>
-          <!-- <pre>{{$root.dataLocker.savedQuerys.query1.optional | json}}</pre> -->
+              <div class=" text-center list-group-item">
+                <button class="btn btn-lg green pull-right" ng-click="launchSearch()">Search</button>
+                <h2>Saved Matrix Querys</h2>
+                <p>
+                  <button class="btn btn-lg btn-link" ng-click="priv()"><<</button>
+                  <input class="text-center formInput" value="{{$root.dataLocker.savedQuerys[showMe].queryname}}" ng-model="$root.dataLocker.savedQuerys[showMe].queryname"/>
+                  <button class="btn btn-lg btn-link" ng-click="next()">>></button>
+                </p>
+              </div>
+
+              <li class="list-group-item">
+                <p>Requiered Skills</p>
+                <ul ui-sortable="sortableOptions" ng-model="$root.dataLocker.savedQuerys[key].required" class="list">
+                  <li ng-repeat="keyword in $root.dataLocker.savedQuerys[key].required  track by $index" class="item blue">{{keyword}}</li>
+                  <li class="text-center" ng-if="$root.dataLocker.savedQuerys[key].required.length < 1"><h2>Drag Skills Here</h2></li>
+                </ul>
+                <!-- <pre>{{$root.dataLocker.savedQuerys['query1'].required | json}}</pre> -->
+              </li>
+
+              <li class="list-group-item">
+                <p>Optional Skills</p>
+                <ul ui-sortable="sortableOptions" ng-model="$root.dataLocker.savedQuerys[key].optional" class="list">
+                  <li ng-repeat="keyword in $root.dataLocker.savedQuerys[key].optional  track by $index" class="item deepblue">{{keyword}}</li>
+                  <li class="text-center" ng-if="$root.dataLocker.savedQuerys[key].optional.length < 1"><h2>Drag Skills Here</h2></li>
+                </ul>
+                <!-- <pre>{{$root.dataLocker.savedQuerys.query1.optional | json}}</pre> -->
+              </li>
+
+            </ul>
+          </div>
+
+
+
+
+
+
+
+
+
 
     	  </div>
       </div>
     </div>
+
   </div>
+
+  <form name="hackFrom">
+        <input id="hackForm" type="text" name="name_from1" ng-model="jobUrl" placeholder="Your Job URL" required>
+        <button id="hackButton" type="submit" class="btn btn-danger sharp" ng-click="showIt()">Get json!</button>
+  </form>
+<pre>{{$root.dataLocker.api | json}}</pre>
