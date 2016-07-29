@@ -1,17 +1,30 @@
 {
   "manifest_version": 2,
-  
+
   "name": "Skills Matrix",
   "description": "This extension helps you with job searching.",
   "version": "1.0",
-  "icons": { "16": "icons/icon16.png",
-             "48": "icons/icon48.png",
-            "128": "icons/icon128.png" },
+  "options_page": "index.html",
+
   "browser_action": {
-    "default_icon": "icons/icon16.png"
+    "default_icon": "icon.png",
+    "default_title": "Skills Matrix",
+    "default_popup": "index.html"
   },
+<<<<<<< HEAD
   "permissions": [
     "activeTab",
     "tabs"
   ]
 }
+=======
+  "background":{
+  	"scripts": ["js/custom.js"]
+  },
+
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ]
+}
+>>>>>>> 270488d8e2e21535c87a485117be1caceb2a6231

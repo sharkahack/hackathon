@@ -5,118 +5,100 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shark-A-Hack - Skills Matrix</title>
 
-
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-  <link rel="stylesheet" href="lib/jquery-ui.css">
-  <link rel="stylesheet" href="css/prittify.css">
   <link rel="stylesheet" href="css/dragDrop.css">
 
   <!-- bring in the librarys -->
   <script src="lib/jquery-3.1.0.min.js"></script>
   <script src="lib/jquery-ui.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
-  <script src="landing.html" type="text/ng-template" id="landing.html"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.14.3/sortable.min.js"></script>
+  <script src="js/angular157.min.js"></script>
+  <script src="js/angularRoute.min.js"></script>
 
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/sortable.min.js"></script>
 
+  <!-- set up angular -->
+  <script src="js/app.js"></script>
+  <script src="queryBuilder.js"></script>
 
+  <!-- init the data files-->
+  <script src="dataLocker/initJson.js"></script>
+  <script src="dataLocker/savedQuerysJson.js"></script>
+  <script src="dataLocker/masterSkillsJson.js"></script>
+  <script src="dataLocker/apiJson.js"></script>
 
-<!-- set up angular -->
-<script src="js/app.js"></script>
+  <script src="js\all.js"></script>
 
-<!-- init the data files-->
-<script src="dataLocker/initJson.js"></script>
-<script src="dataLocker/savedQuerysJson.js"></script>
-<script src="dataLocker/masterSkillsJson.js"></script>
-
- <link rel="stylesheet" href="style.css">
- 
-<script>
-(function(){
-
-  // adds a filter to cross refrence master -> query data
-  angular.module('skillsMatrixApp').filter('crossref', function ($rootScope) {
-      return function (val) {
-        for(x in $rootScope.dataLocker.masterSkills){
-            if (val == $rootScope.dataLocker.masterSkills[x].id){
-              return $rootScope.dataLocker.masterSkills[x].name;
-            }
-          }
-      };
-  });
-
-
-  // add the page controller
-  angular.module('skillsMatrixApp').controller('landingPageCtrl',['$scope', '$rootScope', '$http', controllerFunction]);
-  function controllerFunction($scope, $rootScope, $http){
-
-    $scope.refrenceSkills = function(){
-        console.log($root.dataLocker.masterSkills);
-    };
-
-    console.log($rootScope.dataLocker.masterSkills);
-    $scope.APIUrl = "https://gateway-a.watsonplatform.net/calls/url/URLGetRankedKeywords?apikey=e1988a049c6961aca0a370068dcf5a0140521026&outputMode=json&url="
-    $scope.showRankedKeywords = false;
-    $scope.showIt = function(){
-        $scope.showRankedKeywords = true;
-        $scope.jobUrl = $scope.APIUrl.concat($scope.jobUrl);
-        $http.get($scope.jobUrl).then(function(response) {
-                  $scope.rankedKeywords = response;
-                  console.log($scope.rankedKeywords);
-                  //localStorage.setItem('rankedKeywords', JSON.stringify(result));
-                  //$scope.newMessage = response.data.queries.request.totalResults;
-                  //$scope.messages.push($scope.newMessage);
-        });
-      }
-
-    $scope.showIt();
-    console.log($rootScope.dataLocker);
-  };
-})();
-
-
-(function(){
-
-  angular.module('skillsMatrixApp').controller('sortableController', function ($scope) {
-    'use strict';
-    $scope.sortableOptions = {
-      stop: function(e, ui) {
-
-      }
-    };
-  });
-
-  angular.module('skillsMatrixApp').controller('connectedController', function ($scope) {
-    $scope.masterList = [];
-    $scope.apiList = [];
-    $scope.sortableOptions = {
-      connectWith: '.connectedItemsExample .list',
-      stop: function(e, ui) {
-        console.log(ui);
-      }
-    };
-  });
-
-
-
-})();
-
-
-
-</script>
-
-
+  <!-- init custom.js -->
+  <script type="text/javascript" src="js/custom.js"></script>
 </head>
 
-
 <body ng-app="skillsMatrixApp">
-  <div ng-view=""></div>
+  <div class="content skills-matrix" ng-controller="landingPageCtrl">
+    <!-- <pre>{{pageURL}}</pre> -->
+    <div class="row">
+      <form name="hackFrom" class="pull-right">
+            <input id="hackForm" type="text" ng-model="jobUrl" placeholder="Your Job URL" required>
+            <button id="hackButton" type="submit" class="btn btn-danger sharp" ng-click="showIt()">Get json!</button>
+      </form>
+      <div ng-controller="connectedController" class="row connectedItemsExample">
+      <div class="col-xs-12"><h1>Skills Matrix</h1>
+        <hr>
+      </div>
+      <div class="col-xs-5">
+
+          <h2>New Suggestions:</h2>
+          <div ui-sortable="sortableOptions" ng-model="$root.dataLocker.api" class="newItem">
+            <p ng-repeat="keyword in $root.dataLocker.api track by $index" class="item">{{keyword}}</p>
+          </div>
+          <br>
+          <h2>Skills Library:</h2>
+          <div ui-sortable="sortableOptions" ng-model="$root.dataLocker.masterSkills" class="list">
+            <p ng-repeat="items in $root.dataLocker.masterSkills track by $index" class="masterListObject item green">{{items}}</p>
+          </div>
+          <input placeholder="Add a Custom Skill" ng-model="tempSkill" class="masterListObject item green"/><button ng-click="addSkill();">Add</button>
+          <pre>{{$root.dataLocker.masterSkills | json}}</pre>
+
+        </div>
+
+        <div class="col-xs-7">
+            <!-- List group -->
+            <ul class="list-group metalic" ng-repeat="(key,q) in $root.dataLocker.savedQuerys" ng-show="showMe == key">
+
+              <div class=" text-center list-group-item">
+                <p>
+                  <button class="btn btn-lg btn-link" ng-click="priv()"><<</button>
+                  <input class="text-center formInput" value="{{$root.dataLocker.savedQuerys[showMe].queryname}}" ng-model="$root.dataLocker.savedQuerys[showMe].queryname"/>
+                  <button class="btn btn-lg btn-link" ng-click="next()">>></button>
+                </p>
+              </div>
+
+              <li class="list-group-item">
+                <p>Requiered Skills</p>
+                <ul ui-sortable="sortableOptions" ng-model="$root.dataLocker.savedQuerys[key].required" class="list">
+                  <li ng-repeat="keyword in $root.dataLocker.savedQuerys[key].required  track by $index" class="item blue">{{keyword}}</li>
+                  <li class="text-center" ng-if="$root.dataLocker.savedQuerys[key].required.length < 1"><h2>Drag Skills Here</h2></li>
+                </ul>
+                <!-- <pre>{{$root.dataLocker.savedQuerys['query1'].required | json}}</pre> -->
+              </li>
+
+              <li class="list-group-item">
+                <p>Optional Skills</p>
+                <ul ui-sortable="sortableOptions" ng-model="$root.dataLocker.savedQuerys[key].optional" class="list">
+                  <li ng-repeat="keyword in $root.dataLocker.savedQuerys[key].optional  track by $index" class="item deepblue">{{keyword}}</li>
+                  <li class="text-center" ng-if="$root.dataLocker.savedQuerys[key].optional.length < 1"><h2>Drag Skills Here</h2></li>
+                </ul>
+                <!-- <pre>{{$root.dataLocker.savedQuerys.query1.optional | json}}</pre> -->
+              </li>
+
+              <li class="list-group-item">
+                <button class="btn btn-primary btn-lg btn-block" ng-click="launchSearch()">Search</button>
+              </li>
+
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
-
-
 </html>

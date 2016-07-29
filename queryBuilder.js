@@ -66,12 +66,12 @@
         if (!(required instanceof Array) || required.length === 0)
           return params;
 
-        params = isIndeed ? 'as_and=' + encodeURIComponent(skillNameLookUp(required[0])) : encodeURIComponent(skillNameLookUp(required[0]));
+        params = isIndeed ? 'as_and=' + encodeURIComponent(required[0]) : encodeURIComponent(required[0]);
 
         var concatSymbol = isIndeed ? '+' : '-';
 
         for (var i = 1; i < required.length; i++) {
-          params += concatSymbol + encodeURIComponent(skillNameLookUp(required[i]));
+          params += concatSymbol + encodeURIComponent(required[i]);
         }
         return params;
       }
@@ -82,12 +82,12 @@
         if (!(optional instanceof Array) || optional.length === 0)
           return params;
 
-        params = isIndeed ? 'as_any=' + encodeURIComponent(skillNameLookUp(optional[0])) : '-' + encodeURIComponent(skillNameLookUp(optional[0]));
+        params = isIndeed ? 'as_any=' + encodeURIComponent(optional[0]) : '-' + encodeURIComponent(optional[0]);
 
         var concatSymbol = isIndeed ? '+' : '-';
 
         for (var i = 1; i < optional.length; i++) {
-          params += concatSymbol + encodeURIComponent(skillNameLookUp(optional[i]));
+          params += concatSymbol + encodeURIComponent(optional[i]);
         }
 
         return params;
@@ -97,13 +97,6 @@
         return savedQueries[qn] ? savedQueries[qn] : undefined;
       }
 
-      function skillNameLookUp(id) {
-        for (var i = 0; i < masterSkills.length; i++) {
-          if (masterSkills[i].id === id)
-            return masterSkills[i].name;
-        }
-        return '';
-      }
     }
   }
 })();

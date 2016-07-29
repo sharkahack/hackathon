@@ -8,12 +8,12 @@
   ]);
 
   // set the route
-  angular.module('skillsMatrixApp').config(function($routeProvider){
-    $routeProvider
-    .otherwise({
-      templateUrl: 'landing.html',
-      controller: 'landingPageCtrl'
-    })
-  });
+  //angular.module('skillsMatrixApp').config(function($routeProvider){
+    //$routeProvider
+    //.otherwise({
+      //templateUrl: 'tpl-landing',
+      //controller: 'landingPageCtrl'
+    //})
+  //});
 
 })();
